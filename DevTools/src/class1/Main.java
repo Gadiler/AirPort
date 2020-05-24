@@ -43,15 +43,15 @@ public class Main {
 			switch (res) {
 			case 1: // add flight
 				System.out.println("Please enter airline");
-				String tempAirline = s.nextLine();
+				String tempAirline = s.next();
 				System.out.println("Please enter flight number");
-				String flightNum = s.nextLine();
+				String flightNum = s.next();
 				System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
-				status eStatus = status.valueOf(s.nextLine());
+				status eStatus = status.valueOf(s.next());
 				System.out.println("arrivaing-> true, else -> false");
-				boolean arriving = Boolean.valueOf(s.nextLine());
+				boolean arriving = Boolean.valueOf(s.next());
 				System.out.println("Please enter city");
-				String city = s.nextLine();
+				String city = s.next();
 				System.out.println("Pleasr enter the local date time: (Y, M, D, H, Min)");
 				LocalDateTime dateTime = LocalDateTime.of(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
 				n.addFlight(new flights(tempAirline, flightNum, dateTime, eStatus, arriving, city));
