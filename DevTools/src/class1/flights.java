@@ -27,14 +27,17 @@ public class flights {
 
 	public flights(Scanner s) {
 		System.out.println("Please enter airline");
-		this.airline = s.next();
+		this.airline = s.nextLine();
 		System.out.println("Please enter flight number");
-		this.flightNum = s.next();
-		System.out.println("Flight status?");
+		this.flightNum = s.nextLine();
+		System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
 		this.eStatus = eStatus.valueOf(s.next());
+		System.out.println("arrivaing-> true, else -> false");
 		this.arriving = Boolean.valueOf(s.next());
-		this.city = s.next();
-		s.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
+		System.out.println("Please enter city");
+		this.city = s.nextLine();
+		System.out.println(true);
+		s.findInLine("(2019-Y, 9-M, 5-D, 17-H, 0-Min)");
 		try {
 			MatchResult mr = s.match();
 			int month = Integer.parseInt(mr.group(2));
