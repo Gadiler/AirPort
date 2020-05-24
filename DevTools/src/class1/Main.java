@@ -33,9 +33,47 @@ public class Main {
 		n.addFlight(f5);
 		n.addFlight(f6);
 		
-		n.sortFlights();
+		int res = 0;
+		while (res != -1) {
+			System.out.println("To add flight --> 1\n"
+					+  "To sort by date --> 2\n"
+					+  "To sort by air ports name --> 3\n"
+					+  "Exit --> -1\n");
+			res = s.nextInt();
+			switch (res) {
+			case 1: // add flight
+				System.out.println("Please enter airline");
+				String tempAirline = s.nextLine();
+				System.out.println("Please enter flight number");
+				String flightNum = s.nextLine();
+				System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
+				status eStatus = status.valueOf(s.nextLine());
+				System.out.println("arrivaing-> true, else -> false");
+				boolean arriving = Boolean.valueOf(s.nextLine());
+				System.out.println("Please enter city");
+				String city = s.nextLine();
+				System.out.println("Pleasr enter the local date time: (Y, M, D, H, Min)");
+				LocalDateTime dateTime = LocalDateTime.of(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
+				n.addFlight(new flights(tempAirline, flightNum, dateTime, eStatus, arriving, city));
 
-		System.out.println(n.toString());
+				break;
+			
+			case 2: //sort by date
+				n.sortFlights(new CompareByDate());
+				break;
+				
+			case 3: //sort by air ports name
+				n.sortFlights(new CompareByAirPortName());
+				break;
+				
+			case -1: //Exit
+				System.out.println(n.toString());
+				break;	
+
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + res);
+			}
+		}
 
 	}
 
