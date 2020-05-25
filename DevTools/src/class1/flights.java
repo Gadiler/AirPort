@@ -1,8 +1,10 @@
 package class1;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 
 public class flights {
 
@@ -25,29 +27,43 @@ public class flights {
 		this.dateTime = dateTime;
 	}
 
-	public flights(Scanner s) {
-		System.out.println("Please enter airline");
-		this.airline = s.nextLine();
-		System.out.println("Please enter flight number");
-		this.flightNum = s.nextLine();
-		System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
-		this.eStatus = eStatus.valueOf(s.nextLine());
-		System.out.println("arrivaing-> true, else -> false");
-		this.arriving = Boolean.valueOf(s.nextLine());
-		System.out.println("Please enter city");
-		this.city = s.nextLine();
-		s.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
-		try {
-			MatchResult mr = s.match();
-			int month = Integer.parseInt(mr.group(2));
-			int day = Integer.parseInt(mr.group(1));
-			int hour = Integer.parseInt(mr.group(3));
-			int minute = Integer.parseInt(mr.group(4));
-			LocalDateTime start = LocalDateTime.of(2015, month, day, hour, minute);
-			System.out.println(start);
-		} catch (IllegalStateException e) {
-			System.err.println("Invalid input!");
-		}
+	public flights(Scanner s)  throws FileNotFoundException{
+		airline = s.next();
+		flightNum = s.next();
+		eStatus = status.valueOf(s.next());
+		arriving = s.nextBoolean();
+		s.nextLine();
+		city = s.nextLine();
+		String dateTime = s.nextLine();
+		String dateTimeArr[] = dateTime.split("-");
+		int year = Integer.parseInt(dateTimeArr[0]);
+		int month = Integer.parseInt(dateTimeArr[1]);
+		String tempArr[] = dateTimeArr[2].split("T");
+		int day = Integer.parseInt(tempArr[0]);
+		String timeArr[] = tempArr[1].split(":");
+		int hour = Integer.parseInt(timeArr[0]);
+		int minutes = Integer.parseInt(timeArr[1]);
+		this.dateTime = LocalDateTime.of(year, month, day, hour, minutes);
+	}
+	
+	public void save(String fileName) throws FileNotFoundException{
+		PrintWriter pw = new PrintWriter(new File(fileName));
+		
+		pw.println(airline);
+		pw.println(flightNum);
+		pw.println(eStatus);
+		pw.println(arriving);
+		pw.println(city);
+		pw.println(dateTime);
+	}
+	
+	public void save(PrintWriter pw) throws FileNotFoundException{
+		pw.println(airline);
+		pw.println(flightNum);
+		pw.println(eStatus);
+		pw.println(arriving);
+		pw.println(city);
+		pw.println(dateTime);
 	}
 
 	public String getAirline() {
@@ -84,5 +100,4 @@ public class flights {
 		}
 		return s;
 	}
-
 }
