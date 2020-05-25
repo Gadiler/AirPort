@@ -19,10 +19,10 @@ public class Main {
 		Natbag n = new Natbag("Natbag2020.txt");
 
 		n.addFlight(new flights("Elal", "OK540",d1 , status.onTime, true, "Petah Tikva"));
-		n.addFlight(new flights("Air Fly", "YA123", d2, status.onTime, true, "Paris"));
-		n.addFlight(new flights("Fly Fly", "KOK543", d3, status.onTime, false, "New York"));
-		n.addFlight(new flights("Air Kaka", "BO122", d4, status.onTime, true, "Montana"));
-		n.addFlight(new flights("Air Kaka", "BO122", d5, status.onTime, false, "Montana"));
+		n.addFlight(new flights("Air-Fly", "YA123", d2, status.onTime, true, "Paris"));
+		n.addFlight(new flights("Fly-Fly", "KOK543", d3, status.onTime, false, "New York"));
+		n.addFlight(new flights("Air-Kaka", "BO122", d4, status.onTime, true, "Montana"));
+		n.addFlight(new flights("Air-Kaka", "BO122", d5, status.onTime, false, "Montana"));
 		
 		int res = 0;
 		while (res != -1) {
