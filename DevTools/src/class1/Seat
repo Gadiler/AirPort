@@ -1,0 +1,89 @@
+package class1;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class Seat {
+	private Person myPerson;
+	private String seatID;
+	private flights myPlane;
+	private	boolean freeSeat = true;
+	
+	public Seat(String seatID, flights myPlane, Person myPerson) {
+		this.seatID = seatID;
+		this.myPlane = myPlane;
+		setMyPerson(myPerson);
+	}
+
+	public Seat(Seat seat) {
+		this.seatID = seat.seatID;
+		this.myPlane = seat.myPlane;
+		setMyPerson(seat.myPerson);
+	}
+	
+	public Seat(Scanner s ,flights f) throws FileNotFoundException {
+		seatID = s.nextLine();
+		String res = s.nextLine();
+		myPerson = new Person(null);
+		if (res.equalsIgnoreCase("null")) {
+			myPerson.setCreditCard(null);
+		}else {
+			myPerson.setCreditCard(Long.parseLong(res));
+			freeSeat = false;
+		}
+		myPerson.setPassPortID(s.nextLine());
+		myPlane = new flights(f);
+		
+	}
+	
+	public Person getMyPerson() {
+		return myPerson;
+	}
+
+	public void setMyPerson(Person myPerson) {
+		this.myPerson = new Person(myPerson);
+		if(myPerson == null) { 
+			freeSeat = true;
+		}else {
+			freeSeat = false;
+			this.myPerson.setMySeat(this);
+		}
+	}
+	
+	public boolean getfreeSeat() {
+		return freeSeat;
+	}
+
+	public String getSeatID() {
+		return seatID;
+	}
+
+	public void setSeatID(String seatID) {
+		this.seatID = seatID;
+	}
+
+	public flights getMyPlane() {
+		return myPlane;
+	}
+
+	public void setMyPlane(flights myPlane) {
+		this.myPlane = myPlane;
+	}
+
+	@Override
+	public String toString() {
+		return "SeatID = " + seatID +(myPerson == null ? "" :", " + myPerson )+ ", myflightNum = " + myPlane.flightNum + "\n";
+	}
+
+	public void save(PrintWriter pw) throws FileNotFoundException {
+		pw.println(this.seatID);
+		pw.println(myPerson.getCreditCard());
+		pw.println(myPerson.getPassPortID());
+		
+	}
+	
+	
+	
+	
+}
