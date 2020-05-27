@@ -1,0 +1,37 @@
+100
+Elal
+OK540
+onTime
+true
+Petah Tikva
+2019-09-05T17:00
+Air-Fly
+YL123
+onTime
+true
+Paris
+2019-02-07T19:00
+Fly-Fly
+KOK543
+onTime
+false
+New York
+2019-06-30T09:00
+Air-Kaka
+BO122
+onTime
+true
+Montana
+2019-06-01T17:00
+Air-Kaka
+BO132
+onTime
+false
+Montana
+2019-07-03T05:00
+Air-Kaka
+BO158
+onTime
+false
+Montana
+2019-08-13T05:00
