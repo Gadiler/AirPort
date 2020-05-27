@@ -1,4 +1,4 @@
-package class1;
+package natbad2020;
 
 import java.io.PrintWriter;
 
@@ -6,7 +6,7 @@ public class Person {
 	private Long creditCard;
 	private String passPortID;
 	private Seat mySeat;
-	
+
 	public Person(Long creditCard, String passPortID, Seat mySeat) {
 		this.creditCard = creditCard;
 		this.passPortID = passPortID;
@@ -18,7 +18,7 @@ public class Person {
 			this.creditCard = myPerson.getCreditCard();
 			this.passPortID = myPerson.getPassPortID();
 			this.mySeat = myPerson.getMySeat();
-		}else {
+		} else {
 			this.creditCard = null;
 			this.passPortID = null;
 			this.mySeat = null;
@@ -51,12 +51,12 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person = " + passPortID  + (mySeat == null ? "" :  ", mySeat = " + mySeat.getSeatID() )+ "\n";
+		return "Person = " + passPortID + (mySeat == null ? "" : ", mySeat = " + mySeat.getSeatID()) + "\n";
 	}
 
 	public void save(PrintWriter pw) {
 		pw.println(passPortID);
 		pw.println(creditCard);
-		
+
 	}
 }
