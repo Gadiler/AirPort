@@ -1,84 +1,92 @@
-package class1;
+package natbad2020;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import natbad2020.flights.status;
 
 public class Main {
-	
+
 	static Scanner s = new Scanner(System.in);
 	static Natbag n = new Natbag();
-	
+
 	public static void main(String[] args) throws Exception {
 		n = new Natbag("Natbag2020.txt");
-		
-		n.addFlight(new flights("Elal", "OK540",LocalDateTime.of(2019, 9, 5, 17, 0) , status.onTime, true, "Petah Tikva"));
-		n.addFlight(new flights("Air-Fly", "YL123", LocalDateTime.of(2019, 2, 7, 19, 0), status.onTime, true, "Paris"));
-		n.addFlight(new flights("Fly-Fly", "KOK543", LocalDateTime.of(2019, 6, 30, 9, 0), status.onTime, false, "New York"));
-		n.addFlight(new flights("Air-Kaka", "BO122", LocalDateTime.of(2019, 6, 1, 17, 0), status.onTime, true, "Montana"));
-		n.addFlight(new flights("Air-Kaka", "BO132", LocalDateTime.of(2019, 7, 3, 5, 0), status.onTime, false, "Montana"));
-		n.addFlight(new flights("Air-Kaka", "BO158", LocalDateTime.of(2019, 8, 13, 5, 0), status.onTime, false, "Montana"));
-		
-		int res = 0;
-		while (res != -1) {
-			System.out.println( "To add flight --> 1\n"
-					+   "To sort by date --> 2\n"
-					+   "To sort by air ports name --> 3\n"
-					+   "To buy ticket --> 4\n"
-					+   "For list of all free seats --> 5\n"
-					+   "Exit --> -1\n");
-			res = s.nextInt();
-			switch (res) {
-			case 1: // Add flight
-				System.out.println("Please enter airline");
-				String tempAirline = s.next();
-				System.out.println("Please enter flight number");
-				String flightNum = s.next();
-				System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
-				status eStatus = status.valueOf(s.next());
-				System.out.println("arrivaing-> true, else -> false");
-				boolean arriving = Boolean.valueOf(s.next());
-				System.out.println("Please enter city");
-				String city = s.next();
-				System.out.println("Pleasr enter the local date time: (Y, M, D, H, Min)");
-				LocalDateTime dateTime = LocalDateTime.of(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt());
-				n.addFlight(new flights(tempAirline, flightNum, dateTime, eStatus, arriving, city));
 
-				break;
-			
-			case 2: //Sort by date and print
-				n.sortFlights(new CompareByDate());
-				System.out.println(n.toString());
-				break;
-				
-			case 3: //Sort by air ports name and print
-				n.sortFlights(new CompareByAirPortName());
-				System.out.println(n.toString());
-				break;
-				
-			case 4: //PaymentApp
-				paymentApp();
-				break;
+		n.addFlight(new flights("Turkish-AirLines", "TL989", LocalDateTime.of(2020, 9, 5, 17, 0), status.onTime, true,
+				"Honolulu"));
+		n.addFlight(new flights("Hawaiian-Airlines", "HU731", LocalDateTime.of(2020, 11, 7, 20, 0), status.onTime, true,
+				"Maui"));
+		n.addFlight(new flights("Air-China", "LOL98", LocalDateTime.of(2020, 6, 30, 9, 0), status.onTime, false,
+				"Beijing"));
+		n.addFlight(
+				new flights("Air-India", "IN121", LocalDateTime.of(2020, 6, 1, 17, 0), status.onTime, true, "Mumbai"));
+		n.addFlight(
+				new flights("Delta", "DE900", LocalDateTime.of(2020, 7, 12, 5, 0), status.onTime, false, "Phoenix"));
+		n.addFlight(
+				new flights("easyJet", "KI878", LocalDateTime.of(2020, 8, 13, 6, 0), status.onTime, false, "Serbia"));
+		try {
+			int res = 0;
+			while (res != -1) {
+				System.out.println(
+						"To add flight --> 1\n" + "To sort by date --> 2\n" + "To sort by air ports name --> 3\n"
+								+ "To buy ticket --> 4\n" + "For list of all free seats --> 5\n" + "Exit --> -1\n");
+				res = s.nextInt();
+				switch (res) {
+				case 1: // add flight
+					System.out.println("Please enter airline");
+					String tempAirline = s.next();
+					System.out.println("Please enter flight number");
+					String flightNum = s.next();
+					System.out.println("Flight status? ( landing, unconclusive, early, late, onTime )");
+					status eStatus = status.valueOf(s.next());
+					System.out.println("arrivaing-> true, else -> false");
+					boolean arriving = Boolean.valueOf(s.next());
+					System.out.println("Please enter city");
+					String city = s.next();
+					System.out.println("Pleasr enter the local date time: (Y, M, D, H, Min)");
+					LocalDateTime dateTime = LocalDateTime.of(s.nextInt(), s.nextInt(), s.nextInt(), s.nextInt(),
+							s.nextInt());
+					n.addFlight(new flights(tempAirline, flightNum, dateTime, eStatus, arriving, city));
+					n.save("Natbag2020.txt");
+					break;
 
-			case 5: //Print all free seats
-				for (int i = 0; i < n.allFlights.length; i++) {
-					if (n.allFlights[i] != null) {
-						System.out.println(n.allFlights[i]);
-						n.allFlights[i].getAllFreeSeats();
-						System.out.println("---------------------");
+				case 2: // Sort by date & print
+					n.sortFlights(new CompareByDate());
+					System.out.println(n.toString());
+					break;
+
+				case 3: // Sort by air ports name & print
+					n.sortFlights(new CompareByAirPortName());
+					System.out.println(n.toString());
+					break;
+
+				case 4: // PaymentApp
+					paymentApp();
+					break;
+
+				case 5: // Print all free seats
+					for (int i = 0; i < n.allFlights.size(); i++) {
+						if (n.allFlights.get(i) != null) {
+							System.out.println(n.allFlights.get(i));
+							n.allFlights.get(i).getAllFreeSeats();
+							System.out.println("---------------------");
+						}
 					}
-				}
-				break;
-				
-			case -1: //Exit
-				n.save("Natbag2020.txt");
-				s.close();
-				break;
+					break;
 
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + res);
+				case -1: // Exit
+					System.out.println("Bay-bay");
+					s.close();
+					break;
+
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + res);
+				}
 			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
+
 	}
 
 	public static void paymentApp() throws Exception {
@@ -88,17 +96,14 @@ public class Main {
 			System.out.println("Please enter the flight number:");
 			String flightNum = s.next();
 			flights tempFlight = n.searchFlightByFlightNumber(flightNum);
-			System.out.println("Is that the flight you mean to:\n"
-								+ tempFlight
-								+"\nY to continue.\n");
-			String res2 =s.next();
-			if (res2.equalsIgnoreCase("Y")) { //if NOT wrong flight!
+			System.out.println("Is that the flight you mean to:\n" + tempFlight + "\nY to continue.\n");
+			String res2 = s.next();
+			if (res2.equalsIgnoreCase("Y")) { // if NOT wrong flight!
 				System.out.println("Please enter yor credit catd:\n"); // FOR now without exceptions
 				Long creditCard = s.nextLong();
 				System.out.println("\nPlease enter youer passport number:\n");
 				String passportNumber = s.next();
-				Person tempPerson = new Person(creditCard, passportNumber, null); //create temp person
-				System.out.println(tempPerson);
+				Person tempPerson = new Person(creditCard, passportNumber, null); // create temp person
 				s.nextLine(); // Clean Buffer
 				System.out.println("Please pick one seat:\n");
 				n.searchFlightByFlightNumber(flightNum).getAllFreeSeats(); // pick a seat
@@ -108,7 +113,8 @@ public class Main {
 				tempPerson.setMySeat(tempSeat); // initial seat for user
 				tempSeat.setMyPerson(tempPerson); // initial user into seat
 				n.searchFlightByFlightNumber(flightNum).setSeatToPerson(tempSeat, tempPerson);
-				System.out.println("\nYour ticket has been sent to your Email.\n\n"+tempPerson.getMySeat() + "\n" + tempSeat.getMyPerson() + "\n");
+				System.out.println("\nYour ticket has been sent to your Email.\n\n" + tempPerson.getMySeat() + "\n"
+						+ tempSeat.getMyPerson() + "\n");
 				n.save("Natbag2020.txt");
 			}
 		}
