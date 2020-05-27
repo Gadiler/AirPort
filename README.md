@@ -1,5 +1,5 @@
 # Natbag2020
 
-Application for track flights and buy tickets.
+An app for tracking and purchasing airline tickets.
 
 This code is still under development.
