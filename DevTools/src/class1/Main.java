@@ -22,14 +22,14 @@ public class Main {
 		int res = 0;
 		while (res != -1) {
 			System.out.println( "To add flight --> 1\n"
-					+			"To sort by date --> 2\n"
-					+			"To sort by air ports name --> 3\n"
-					+			"To buy ticket --> 4\n"
-					+			"For list of all free seats --> 5\n"
-					+			"Exit --> -1\n");
+					+   "To sort by date --> 2\n"
+					+   "To sort by air ports name --> 3\n"
+					+   "To buy ticket --> 4\n"
+					+   "For list of all free seats --> 5\n"
+					+   "Exit --> -1\n");
 			res = s.nextInt();
 			switch (res) {
-			case 1: // add flight
+			case 1: // Add flight
 				System.out.println("Please enter airline");
 				String tempAirline = s.next();
 				System.out.println("Please enter flight number");
@@ -46,21 +46,21 @@ public class Main {
 
 				break;
 			
-			case 2: //sort by date
+			case 2: //Sort by date and print
 				n.sortFlights(new CompareByDate());
 				System.out.println(n.toString());
 				break;
 				
-			case 3: //sort by air ports name
+			case 3: //Sort by air ports name and print
 				n.sortFlights(new CompareByAirPortName());
 				System.out.println(n.toString());
 				break;
 				
-			case 4: //paymentApp
+			case 4: //PaymentApp
 				paymentApp();
 				break;
 
-			case 5: //All free seats
+			case 5: //Print all free seats
 				for (int i = 0; i < n.allFlights.length; i++) {
 					if (n.allFlights[i] != null) {
 						System.out.println(n.allFlights[i]);
@@ -79,8 +79,6 @@ public class Main {
 				throw new IllegalArgumentException("Unexpected value: " + res);
 			}
 		}
-		
-		
 	}
 
 	public static void paymentApp() throws Exception {
@@ -115,5 +113,4 @@ public class Main {
 			}
 		}
 	}
-
 }
