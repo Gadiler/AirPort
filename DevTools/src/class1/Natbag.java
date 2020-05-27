@@ -1,51 +1,44 @@
-package class1;
+package natbad2020;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class Natbag {
 
-	protected flights[] allFlights;
-	private int numOfFlights = 0;
-	private final int MAX_NUM_OF_FLIGHTS = 100;
+	protected ArrayList<flights> allFlights;
 
 	public Natbag() {
-		this.allFlights = new flights[MAX_NUM_OF_FLIGHTS];
+		this.allFlights = new ArrayList<flights>();
 	}
 
 	public Natbag(String fileName) throws FileNotFoundException {
 		Scanner s = new Scanner(new File(fileName));
-		if (s.hasNext()) {
-			int sizeOfArr = s.nextInt();
-			int num = 0;
-			this.allFlights = new flights[sizeOfArr];
-			while (s.hasNext()) {
-				allFlights[num++] = new flights(s);
-				numOfFlights++;
-			}
+		this.allFlights = new ArrayList<flights>();
+		while (s.hasNext()) {
+			allFlights.add(new flights(s));
 		}
 		s.close();
 	}
 
 	public void save(String fileName) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(new File(fileName));
-		pw.println(allFlights.length);
-		for (int i = 0; i < numOfFlights; i++) {
-				allFlights[i].save(pw);
+		for (int i = 0; i < allFlights.size(); i++) {
+			allFlights.get(i).save(pw);
 		}
 		pw.close();
 	}
 
 	public boolean addFlight(flights flight) {
-		for (int i = 0; i < numOfFlights; i++) {
-			if (allFlights[i].equals(flight)) {
+		for (int i = 0; i < allFlights.size(); i++) {
+			if (allFlights.get(i).equals(flight)) {
 				return false;
 			}
 		}
-		allFlights[numOfFlights++] = new flights(flight);
+		allFlights.add(flight);
 		return true;
 	}
 
@@ -53,16 +46,14 @@ public class Natbag {
 		BubbleSort.bubbleSort(allFlights, c);
 	}
 
-	public flights[] getFlights() {
+	public ArrayList<flights> getFlights() {
 		return allFlights;
 	}
 
 	public flights searchFlightByFlightNumber(String flightNum) throws Exception {
-		for (int i = 0; i < allFlights.length; i++) {
-			if (allFlights[i] != null) {
-				if (allFlights[i].getFlightNum().equalsIgnoreCase(flightNum)) {
-					return allFlights[i];
-				}
+		for (int i = 0; i < allFlights.size(); i++) {
+			if (allFlights.get(i).getFlightNum().equalsIgnoreCase(flightNum)) {
+				return allFlights.get(i);
 			}
 		}
 		return null;
@@ -71,17 +62,16 @@ public class Natbag {
 	public String toString() {
 		String arr = "";
 		String dep = "";
-		for (int i = 0; i < allFlights.length; i++) {
-			if (allFlights[i] != null && allFlights[i].arriving) {
-				arr += allFlights[i].toString();
+		for (int i = 0; i < allFlights.size(); i++) {
+			if (allFlights.get(i).arriving) {
+				arr += allFlights.get(i).toString();
 			}
 		}
-		for (int i = 0; i < allFlights.length; i++) {
-			if (allFlights[i] != null && !allFlights[i].arriving) {
-				dep += allFlights[i].toString();
+		for (int i = 0; i < allFlights.size(); i++) {
+			if (!allFlights.get(i).arriving) {
+				dep += allFlights.get(i).toString();
 			}
 		}
 		return "Departing flights: \n" + dep + "\n" + "Arriving flights: \n" + arr;
 	}
-
 }
