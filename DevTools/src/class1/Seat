@@ -1,4 +1,4 @@
-package class1;
+package natbad2020;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -8,8 +8,8 @@ public class Seat {
 	private Person myPerson;
 	private String seatID;
 	private flights myPlane;
-	private	boolean freeSeat = true;
-	
+	private boolean freeSeat = true;
+
 	public Seat(String seatID, flights myPlane, Person myPerson) {
 		this.seatID = seatID;
 		this.myPlane = myPlane;
@@ -21,36 +21,36 @@ public class Seat {
 		this.myPlane = seat.myPlane;
 		setMyPerson(seat.myPerson);
 	}
-	
-	public Seat(Scanner s ,flights f) throws FileNotFoundException {
+
+	public Seat(Scanner s, flights f) throws FileNotFoundException {
 		seatID = s.nextLine();
 		String res = s.nextLine();
 		myPerson = new Person(null);
 		if (res.equalsIgnoreCase("null")) {
 			myPerson.setCreditCard(null);
-		}else {
+		} else {
 			myPerson.setCreditCard(Long.parseLong(res));
 			freeSeat = false;
 		}
 		myPerson.setPassPortID(s.nextLine());
 		myPlane = new flights(f);
-		
+
 	}
-	
+
 	public Person getMyPerson() {
 		return myPerson;
 	}
 
 	public void setMyPerson(Person myPerson) {
 		this.myPerson = new Person(myPerson);
-		if(myPerson == null) { 
+		if (myPerson == null) {
 			freeSeat = true;
-		}else {
+		} else {
 			freeSeat = false;
 			this.myPerson.setMySeat(this);
 		}
 	}
-	
+
 	public boolean getfreeSeat() {
 		return freeSeat;
 	}
@@ -73,17 +73,14 @@ public class Seat {
 
 	@Override
 	public String toString() {
-		return "SeatID = " + seatID +(myPerson == null ? "" :", " + myPerson )+ ", myflightNum = " + myPlane.flightNum + "\n";
+		return "SeatID = " + seatID + (myPerson == null ? "" : ", " + myPerson) + ", myflightNum = " + myPlane.flightNum
+				+ "\n";
 	}
 
 	public void save(PrintWriter pw) throws FileNotFoundException {
 		pw.println(this.seatID);
 		pw.println(myPerson.getCreditCard());
 		pw.println(myPerson.getPassPortID());
-		
+
 	}
-	
-	
-	
-	
 }
